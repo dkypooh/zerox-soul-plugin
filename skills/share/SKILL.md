@@ -68,7 +68,7 @@ AI 说我是「{typeName}」⭐ {rarity}。
 
 链上 1v1 相遇 PK，0 协议费，winner 拿走 2X
 扔你的钱包，看你的 👇
-https://cipher.pet/u/{address}
+https://0xsoul.fun/u/{address}
 
 #0xSoul #链魂 · Built on @okx OnchainOS · @XLayerOfficial
 ```
@@ -83,7 +83,7 @@ AI says I'm a {nameEn} ⭐ {rarity}.
 Record: {wins}W {losses}L · {winRate}% win rate
 
 1v1 相遇 PK. 0 protocol fee. Winner takes 2X.
-Drop your wallet → https://cipher.pet/u/{address}
+Drop your wallet → https://0xsoul.fun/u/{address}
 
 #0xSoul · @okx OnchainOS · @XLayerOfficial
 ```
@@ -110,7 +110,7 @@ https://twitter.com/intent/tweet?text=<URL-encoded text>
 AI 说我是「{typeName}」。
 8 种人格，你赌你是哪一种？
 评论区扔地址，30 秒帮你召唤 👁
-https://cipher.pet/u/{address}
+https://0xsoul.fun/u/{address}
 ```
 
 **Professional**:
@@ -124,7 +124,7 @@ https://cipher.pet/u/{address}
 战绩：{wins}W {losses}L
 "{quote}"
 
-→ https://cipher.pet/u/{address}
+→ https://0xsoul.fun/u/{address}
 ```
 
 #### C. Mirror.xyz 长文骨架（800 字）
@@ -167,7 +167,7 @@ Built on OKX OnchainOS · XLayer · 黑客松 v0.1
   ① Twitter 推文 + 互动数
   ② 朋友圈 + ≥3 条评论
   ③ 内部 Lark 群分享
-  ④ cipher.pet/u/{address} 个人页（含 Persona Card）
+  ④ 0xsoul.fun/u/{address} 个人页（含 Persona Card）
   ⑤ /cipherpet-summon 命令在 Claude Code 里的录屏 GIF
 ```
 

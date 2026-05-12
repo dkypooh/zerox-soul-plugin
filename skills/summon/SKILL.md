@@ -348,7 +348,7 @@ AI:   ✓ 上链中...
    Nickname: {nickname}
    Slogan:   {slogan}
    Tx:       https://www.okx.com/web3/explorer/xlayer/tx/{tx_hash}
-   Dashboard: https://cipher.pet/u/{me}
+   Dashboard: https://0xsoul.fun/u/{me}
 
 🔐 整个过程私钥**没出过 TEE 飞地**。
 ```
