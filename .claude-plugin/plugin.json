@@ -1,6 +1,6 @@
 {
   "name": "zerox-soul",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "description": "链魂 0xSoul — XLayer 上的链上灵魂协议。自然语言对话，AI 自动召唤 Pet / Vault 存提 / 1v1 相遇 PK，通过 OKX OnChainOS TEE 钱包零私钥暴露。",
   "author": {
     "name": "0xSoul Team",

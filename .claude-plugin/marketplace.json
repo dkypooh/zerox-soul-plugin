@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "0xSoul — onchain soul protocol on XLayer. Mint your wallet as a Soul Card NFT, PK 1v1 onchain, all via natural-language Claude Code skills + OKX OnChainOS TEE wallet.",
-    "version": "0.4.1"
+    "version": "0.4.3"
   },
   "plugins": [
     {
       "name": "zerox-soul",
       "source": "./",
       "description": "链魂 0xSoul — XLayer 上的链上灵魂协议。自然语言对话即可召唤 Pet / Vault 存提 / 1v1 相遇 PK，通过 OKX OnChainOS TEE 钱包，零私钥暴露。",
-      "version": "0.4.1",
+      "version": "0.4.3",
       "category": "web3",
       "tags": ["xlayer", "okx", "onchainos", "soulbound", "pvp", "erc721", "nft", "tee"]
     }
