@@ -19,8 +19,8 @@ claude
 ### Step 2 · 装 Plugin（粘贴 2 行，一次性配置）
 
 ```
-/plugin marketplace add /Users/matrix/Documents/claude/hackthon/cipherpet
-/plugin install zerox-soul@zerox-soul-local
+/plugin marketplace add dkypooh/zerox-soul-plugin
+/plugin install zerox-soul@zerox-soul
 ```
 
 看到 `✓ zerox-soul installed` 就完事。**这是你最后一次需要敲 `/` 命令**。
@@ -186,8 +186,8 @@ npm run dev
 
 | 现象 | 根因 | 一句话修复 |
 |------|------|----------|
-| `/plugin install` 报 `Invalid plugin name` | 早期版本 slug 以数字开头 | 用 `zerox-soul@zerox-soul-local`，不要用 `0xsoul` |
-| `/plugin install` 报 `marketplace not found` | 没跑 Step 2 第一行 | 先 `/plugin marketplace add /Users/matrix/Documents/claude/hackthon/cipherpet` |
+| `/plugin install` 报 `Invalid plugin name` | 早期版本 slug 以数字开头 | 用 `zerox-soul@zerox-soul`，不要用 `0xsoul` |
+| `/plugin install` 报 `marketplace not found` | 没跑 Step 2 第一行 | 先 `/plugin marketplace add dkypooh/zerox-soul-plugin` |
 | AI 不识别"召唤" | plugin 没启用 | `/plugin` 查看，必要时 `/plugin enable zerox-soul` |
 | AI 反复问邮箱 | session 缓存丢失 | 重说"召唤"，session 会重新建立（< 5s） |
 | OTP 收不到 | 邮箱过滤 | 跟 AI 说"重发 OTP"，或检查垃圾邮箱 |

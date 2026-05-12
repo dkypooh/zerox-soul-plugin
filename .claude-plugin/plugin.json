@@ -4,15 +4,20 @@
   "description": "链魂 0xSoul — XLayer 上的链上灵魂协议。自然语言对话，AI 自动召唤 Pet / Vault 存提 / 1v1 相遇 PK，通过 OKX OnChainOS TEE 钱包零私钥暴露。",
   "author": {
     "name": "0xSoul Team",
-    "url": "https://0xsoul.vercel.app"
+    "url": "https://0xsoul.fun"
   },
   "license": "MIT",
-  "homepage": "https://0xsoul.vercel.app",
+  "homepage": "https://0xsoul.fun",
   "repository": {
     "type": "git",
-    "url": "https://github.com/<YOUR_GH_USER>/zerox-soul-plugin"
+    "url": "https://github.com/dkypooh/zerox-soul-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/dkypooh/zerox-soul-plugin/issues"
   },
   "keywords": [
+    "claude-code",
+    "claude-plugin",
     "xlayer",
     "okx",
     "onchainos",
