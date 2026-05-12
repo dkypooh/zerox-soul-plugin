@@ -8,13 +8,7 @@
   },
   "license": "MIT",
   "homepage": "https://0xsoul.fun",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dkypooh/zerox-soul-plugin"
-  },
-  "bugs": {
-    "url": "https://github.com/dkypooh/zerox-soul-plugin/issues"
-  },
+  "repository": "https://github.com/dkypooh/zerox-soul-plugin",
   "keywords": [
     "claude-code",
     "claude-plugin",
