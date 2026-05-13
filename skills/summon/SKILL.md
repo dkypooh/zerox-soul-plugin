@@ -26,7 +26,7 @@ description: |
 
 ```
 network:  XLayer mainnet (chainId 196)
-contract: 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 (CipherPetCore · 0xSoul ERC-721)
+contract: 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 (CipherPetCore · 0xSoul ERC-721)
 stake:    0x779ded0c9e1022225f8e0630b35a9b54be713736 (real USDT)
 ```
 
@@ -98,7 +98,7 @@ try:
             print(c['address']); break
 except: pass
 ")
-HAS=$(cast call 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
+HAS=$(cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
     "hasSummoned(address)(bool)" $ME \
     --rpc-url https://rpc.xlayer.tech)
 ```
@@ -148,7 +148,7 @@ echo "Your XLayer address: $ME"
 ### Step 2 — 检查是否已召唤
 
 ```bash
-HAS=$(cast call 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
+HAS=$(cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
     "hasSummoned(address)(bool)" $ME \
     --rpc-url https://rpc.xlayer.tech)
 
@@ -280,7 +280,7 @@ CALLDATA=$(cast calldata "summon(uint8,string,string)" $TYPE_IDX "$NICKNAME" "$S
 
 ```bash
 RESULT=$(onchainos wallet contract-call \
-    --to 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
+    --to 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
     --chain xlayer \
     --input-data "$CALLDATA" \
     --biz-type "dapp")

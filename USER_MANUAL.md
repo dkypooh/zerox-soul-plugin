@@ -58,7 +58,7 @@ AI 会自动接管：
 | 想做的事 | 需要的资产 | 充值步骤 |
 |---------|----------|---------|
 | **召唤自己的链魂**（mint NFT、答 5 题、拿身份卡）| 0.005 OKB（gas）| OKX 提币 → X Layer → 0.005 OKB · **一次性** |
-| **1v1 PK 抢 USDT**（可选，不感兴趣可跳过）| 1–10 USDT（押注）| 想 PK 时再 "存 N USDT" 进 vault |
+| **1v1 PK 抢 USDT**（可选，不感兴趣可跳过）| ≥ 0.01 USDT（押注 · 无上限）| 想 PK 时再 "存 N USDT" 进 vault |
 
 ### 不想 PK 的玩家路径（**0 充值 USDT**）
 ```
@@ -74,7 +74,7 @@ AI 会自动接管：
 ### 关于资金安全
 - **私钥从未离开 OKX TEE 飞地**（你自己也不掌握私钥，OKX 也读不到）
 - **合约 0 admin / 完全 immutable**（部署后没人能改规则，包括我们）
-- **vault 上限 1000 USDT / 地址**：故意压低，反巨鲸 + 反金融化
+- **vault 无上限 · 押注 ≥ 0.01 USDT**：v2 移除人为常量，靠链上经济原理约束
 - **任何时候说"取出来"**：vault 余额秒回你钱包
 
 ---
@@ -160,16 +160,16 @@ AI: 正在 TEE 内代签 → 链上广播...
 ```
 你: 找人打
 
-AI: 当前可挑战目标（vault ≥ 1 USDT）：
-    1. 0x1Cb8 · DeFi 策士 ◈ · vault 5 USDT · 0胜1负
-    2. 0x4c8a · 沉默巨鲸 ◊ · vault 12 USDT · 8胜3负
+AI: 当前可挑战目标（vault ≥ 你的押金）：
+    1. 0x1Cb8 · DeFi 策士 ◈ · vault 0.5 USDT · 0胜1负
+    2. 0x4c8a · 沉默巨鲸 ◊ · vault 1.2 USDT · 8胜3负
 
-你: 挑战第一个，押 1 USDT
+你: 挑战第一个，押 0.05 USDT
 
 AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 
     🎉 你赢了！
-    净赚 +1 USDT (2 USDT 已进你钱包)
+    净赚 +0.05 USDT (0.1 USDT 已进你钱包)
     战绩: 2胜0负
 
     tx: https://www.okx.com/web3/explorer/xlayer/tx/0xa3ae...
@@ -187,7 +187,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 | 合约会跑路吗 | ❌ 部署后 0 admin 函数，**immutable**，没人能改规则 |
 | 能转 Pet 吗  | ❌ Soulbound ERC-721，永远属于召唤者                |
 | 能随时退出吗 | ✅ 说"取出来"，USDT 直接回你钱包                    |
-| Vault 上限   | 1,000 USDT / 地址 · 单场押注 1–10 USDT              |
+| Vault 上限   | **无上限** · 单场押注 ≥ 0.01 USDT（v2 移除人为常量） |
 
 ---
 
@@ -214,7 +214,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 ## ✨ 主网地址（信息透明 · v0.8）
 
 ```
-CipherPetCore:  0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7
+CipherPetCore:  0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
 USDT (stake):   0x779ded0c9e1022225f8e0630b35a9b54be713736
 Chain:          XLayer mainnet (chainId 196)
 RPC:            https://rpc.xlayer.tech
@@ -226,7 +226,7 @@ ERC-721 symbol: SOUL
 任何人都能直接用 `cast` 验证：
 
 ```bash
-cast call 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
+cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
   "getPet(address)((uint8,uint32,string,string))" \
   <your_address> --rpc-url https://rpc.xlayer.tech
 # 返回: (typeIdx, summonedAt, nickname, quote)

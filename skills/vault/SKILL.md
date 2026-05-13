@@ -14,13 +14,13 @@ description: |
 
 > 通过 `onchainos wallet contract-call` 走 ERC-4337，TEE 签名
 >
-> 📖 **故障 / 用户疑问 → `Read` [`USER_MANUAL.md`](../../USER_MANUAL.md)**（plugin 根目录 `cipherpet/USER_MANUAL.md`）。手册含 `InsufficientVaultBalance` / `VaultCapExceeded` / approve / 1k USDT 上限等所有 vault 错误的一句话修复。**plugin 唯一可信运行说明**。
+> 📖 **故障 / 用户疑问 → `Read` [`USER_MANUAL.md`](../../USER_MANUAL.md)**（plugin 根目录 `cipherpet/USER_MANUAL.md`）。手册含 `InsufficientVaultBalance` / `AmountBelowMin` / approve / vault 无上限等所有 vault 错误的一句话修复。**plugin 唯一可信运行说明**。
 
 ## 链上目标（XLayer mainnet）
 
 ```
 network:  XLayer mainnet (chainId 196)
-CipherPetCore: 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7
+CipherPetCore: 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
 USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 ```
 
@@ -28,7 +28,7 @@ USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 
 ```bash
 onchainos wallet status            # 应已登录
-cast call 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
+cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
     "hasSummoned(address)(bool)" $ME \
     --rpc-url https://rpc.xlayer.tech                # 应为 true
 ```
@@ -43,7 +43,7 @@ cast call 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7 \
 
 ```bash
 USDT="0x779ded0c9e1022225f8e0630b35a9b54be713736"
-CORE="0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7"
+CORE="0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26"
 RPC="https://rpc.xlayer.tech"
 
 ALLOW=$(cast call $USDT "allowance(address,address)(uint256)" $ME $CORE --rpc-url $RPC | awk '{print $1}')
@@ -121,7 +121,7 @@ echo "Wallet: $(echo "scale=2; $WALLET_USDT / 1000000" | bc) USDT"
 | Error | 含义 |
 |-------|------|
 | `NotSummoned` | 还没召唤 Pet → /cipherpet-summon |
-| `VaultCapExceeded` | 超 1000 USDT 上限 |
+| `AmountBelowMin` | amount = 0 → 至少存 1 wei |
 | `InsufficientVaultBalance` | withdraw 超余额 |
 
 ---

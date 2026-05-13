@@ -14,12 +14,12 @@ description: |
 
 > B 挑战 A，一笔 ERC-4337 UserOperation 在 TEE 内代签 → EntryPoint 执行 → 合约决胜 + 转账
 >
-> 📖 **故障 / 用户疑问 → `Read` [`USER_MANUAL.md`](../../USER_MANUAL.md)**（plugin 根目录 `cipherpet/USER_MANUAL.md`）。手册含 `CannotChallengeSelf` / `NotSummoned` / `AmountOutOfRange` / `InsufficientVaultBalance` 等所有相遇 PK 错误的一句话修复。**plugin 唯一可信运行说明**。
+> 📖 **故障 / 用户疑问 → `Read` [`USER_MANUAL.md`](../../USER_MANUAL.md)**（plugin 根目录 `cipherpet/USER_MANUAL.md`）。手册含 `CannotChallengeSelf` / `NotSummoned` / `AmountBelowMin` / `InsufficientVaultBalance` 等所有相遇 PK 错误的一句话修复。**plugin 唯一可信运行说明**。
 
 ## 链上目标（XLayer mainnet）
 
 ```
-CipherPetCore: 0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7
+CipherPetCore: 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
 USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 ```
 
@@ -28,7 +28,7 @@ USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 ## 模式 1: List 可挑战目标
 
 ```bash
-MY_STAKE_WEI=1000000   # 1 USDT
+MY_STAKE_WEI=50000   # 0.05 USDT（v2 min = 0.01 USDT = 1e4）
 cast call $CORE "getChallengeableTargets(uint128,uint256,uint256)(address[])" \
     $MY_STAKE_WEI 0 20 --rpc-url https://rpc.xlayer.tech
 ```
@@ -146,6 +146,6 @@ CipherPetCore:
 | Error | 修复 |
 |-------|------|
 | `NotSummoned` | 双方都要先 /cipherpet-summon |
-| `AmountOutOfRange` | 1 ≤ amount ≤ 10 USDT |
+| `AmountBelowMin` | amount ≥ 0.01 USDT（v2 无上限） |
 | `InsufficientVaultBalance` | 对方 vault 不够 → 换对手 |
 | `insufficient funds for gas` | 你 OKB 不够 → 充 XLayer mainnet OKB |

@@ -216,7 +216,7 @@ cat > ~/.cipherpet/session.env <<EOF
 export SOULPET_ME="$ME"
 export SOULPET_EMAIL_HASH="$(echo -n $EMAIL | shasum -a 256 | head -c 8)"
 export SOULPET_LAST_CHECK=$(date +%s)
-export SOULPET_CORE="0xe639d8A5C3ABA8F74070BB2eA383b11CBc9568B7"
+export SOULPET_CORE="0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26"
 export SOULPET_USDT="0x779ded0c9e1022225f8e0630b35a9b54be713736"
 export SOULPET_RPC="https://rpc.xlayer.tech"
 EOF
