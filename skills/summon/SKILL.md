@@ -355,12 +355,16 @@ AI:   ✓ 上链中...
 
 ### Step 8 — 引导下一步
 
+> **v3 行为提醒**：召唤后**钱包 USDT 没法直接 PK**，必须先 deposit 到 vault。Vercel dashboard 自动有 0.1 USDT 启动彩蛋打到**钱包**，是给你做 deposit 的种子。
+
 ```
-1. 存 USDT 到 vault: /cipherpet-vault deposit 5
-2. 挑战别人: /cipherpet-challenge <地址> 1
-3. 看战绩: /cipherpet-stats
-4. 分享: /cipherpet-share
+0. (一次性) 存 USDT 到备战池: 说"存 1 USDT" — AI 自动 approve + deposit
+1. 挑战别人:                说"挑战 0x..." 或 "找人打"
+2. 看战绩:                  说"看我的战绩" / /cipherpet-stats
+3. 分享:                    说"分享" / /cipherpet-share
 ```
+
+> 顺序约束：v3 必须 `summon → deposit → challenge`，不能跳 deposit（vault 余额 0 时 challenge 必 revert）。
 
 ---
 

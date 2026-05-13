@@ -18,7 +18,7 @@ export SOULPET_EXPLORER="https://www.okx.com/web3/explorer/xlayer"
 summon(uint8,string,string)         = 0xb434147f   // v0.8: (typeIdx, nickname, quote)
 deposit(uint128)                    = 0x0efe6a8b
 withdraw(uint128)                   = 0x2e1a7d4d
-challenge(address,uint128)          = 0xa6dfe0e5
+challenge(address,uint128)          = 0xa6dfe0e5   // v3: 0 外部 ERC20 调用，无需 approve
 getPet(address)                     = 0xa3eaf7e2
 hasSummoned(address)                = 0xc4a02ef5
 getBalance(address)                 = 0xf8b2cb4f
@@ -26,12 +26,23 @@ getVault(address)                   = 0xab93f5e9
 getWinRate(address)                 = 0xfe1d5b27
 getRecentBattles(uint256,uint256)   = 0xe6d2c2c4
 
+// v3 新增：资金池守恒
+totalVaultLocked()                  = 0x562918e5   // 所有 vault 余额之和
+getPoolStatus()                     = 0x7f79496c   // (heldUSDT, locked, surplus)
+
 // ERC-20
 approve(address,uint256)            = 0x095ea7b3
 transfer(address,uint256)           = 0xa9059cbb
 balanceOf(address)                  = 0x70a08231
 allowance(address,address)          = 0xdd62ed3e
 ```
+
+## v3 行为约束（AI 不要踩坑）
+
+- **challenge 路径 0 个 ERC20 调用** —— `approve` / `transferFrom` / `transfer` 一律不要在 challenge 前后塞进去
+- `approve(CipherPetCore, MAX)` **只在首次 deposit 前**需要一次
+- 一笔 `challenge()` 链上发 **4 条 event**：3× `VaultBalanceChanged` + 1× `BattleResolved`；解析 winner **必须按 event 签名匹配** `BattleResolved`，不能简单取最后一条 log 末尾 20 字节
+- 资金池守恒不变量：`heldUSDT >= totalVaultLocked`，challenge 前后 `totalVaultLocked` 不变
 
 ## Summon calldata（v0.8 新签名）
 

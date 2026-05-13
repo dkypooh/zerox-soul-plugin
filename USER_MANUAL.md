@@ -66,10 +66,15 @@ AI 会自动接管：
 ```
 就这样。Soulbound NFT 永久属于你，**0xSoul.fun/u/<你的地址>** 是你独占的展示页。
 
-### 想 PK 的玩家路径
+### 想 PK 的玩家路径（**v3 对称 vault**）
 ```
-召唤完后 → "存 3 USDT" → "找人打" / "挑战 0x..." → 链上随机出胜负 → 赢家拿 2×
+召唤 → "存 N USDT" 进备战池 → "找人打" / "挑战 0x..." → 链上随机 → 赢家拿 2×
 ```
+
+> **v3 关键体感（与 v2 不同）**：
+> - 押注**不再从钱包扣**，挑战双方都从各自备战池（vault）扣 → 玩之前**必须先 deposit**
+> - 赢的 USDT **直接进备战池**（不到钱包），要"取出来"才回钱包
+> - 挑战本身**不再需要 USDT approve**（首次 deposit 时 approve 一次即可，挑战路径 0 外部 ERC20 调用）
 
 ### 关于资金安全
 - **私钥从未离开 OKX TEE 飞地**（你自己也不掌握私钥，OKX 也读不到）
@@ -169,11 +174,13 @@ AI: 当前可挑战目标（vault ≥ 你的押金）：
 AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 
     🎉 你赢了！
-    净赚 +0.05 USDT (0.1 USDT 已进你钱包)
+    净赚 +0.05 USDT （0.10 USDT 已进你**备战池**，可随时 "取出来" 到钱包）
     战绩: 2胜0负
 
     tx: https://www.okx.com/web3/explorer/xlayer/tx/0xa3ae...
 ```
+
+> v3 提醒：奖金永远先进备战池，不进钱包。说"取出来"即可 withdraw 到钱包。
 
 ---
 
@@ -200,21 +207,26 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 | AI 不识别"召唤"                              | plugin 没启用                   | `/plugin` 查看，必要时 `/plugin enable zerox-soul`     |
 | AI 反复问邮箱                                | session 缓存丢失                | 重说"召唤"，session 会重新建立（< 5s）                 |
 | OTP 收不到                                   | 邮箱过滤                        | 跟 AI 说"重发 OTP"，或检查垃圾邮箱                     |
-| `Failed to estimate gas: AlreadySummoned`    | 该地址在 v0.8 合约已召唤过      | 说"看我的战绩"即可，**每地址一辈子只能召唤一次**       |
+| `Failed to estimate gas: AlreadySummoned`    | 该地址在 v3 合约已召唤过        | 说"看我的战绩"即可，**每地址一辈子只能召唤一次**       |
 | `InvalidNicknameLength`                      | 昵称 > 32 字节（≈ 10 中文字）   | 缩短，或回复"用默认"走 `addr[0:6]`                     |
 | `InvalidQuoteLength`                         | Slogan > 64 字节（≈ 20 中文字） | 缩短                                                   |
 | `insufficient funds for gas`                 | 钱包没 OKB                      | 从 OKX 提 ≥ 0.001 OKB 到 XLayer 主网                   |
-| `ERC20: insufficient allowance`              | USDT 还没 approve               | 说"存 X USDT"，AI 会自动 approve + deposit             |
-| `InsufficientVaultBalance`                   | **v3 双方 vault 都需 ≥ amount** | 自己不足 → 先 "存 X USDT"；对方不足 → 换目标或押少点 |
+| `ERC20: insufficient allowance`              | USDT 还没 approve（**只在 deposit 时需要**） | 说"存 X USDT"，AI 会自动 approve + deposit |
+| `InsufficientVaultBalance`（挑战时）         | **v3 双方 vault 都需 ≥ amount** | 自己不足 → 先 "存 X USDT"；对方不足 → 换目标或押少点 |
+| `CHALLENGER_VAULT_LOW`（前端弹窗）           | Dashboard 检查到你 vault 不够   | 点"+ 存入备战池"按钮（金色脉动），存完自动回挑战面板    |
+| 赢了但钱包 USDT 没变                          | **v3 奖金进 vault 不进钱包**    | 看"备战池 USDT"翻倍即为已收；说"取出来"才到钱包         |
+| Dashboard 显示输了但链上 BattleResolved.winner = me | Dashboard 老版本解析 event 错（已修复） | 强制刷新页面（v3 已修 readBattleWinner）          |
+| RPC 报 `block is out of range`               | XLayer 公共 RPC 短暂滞后        | Dashboard 已改用 `getTransactionReceipt` 直查，无需操作 |
+| Faucet 报 `ALREADY_SUMMONED`                 | KV 卡了 v2 时代记录             | 已清空；如仍出现，等 24 小时或换地址                   |
 | Dashboard 一直转圈                           | RPC 偶发 502                    | 等 8 秒下次轮询自动恢复（stale-while-revalidate）      |
-| Dashboard 显示空                             | 当前地址未召唤过 v0.8 合约      | 先在 Claude Code 里召唤，~30 秒后 Dashboard 出现       |
+| Dashboard 显示空                             | 当前地址未召唤过 v3 合约         | 先在 Claude Code 里召唤，~30 秒后 Dashboard 出现       |
 
 ---
 
-## ✨ 主网地址（信息透明 · v0.8）
+## ✨ 主网地址（信息透明 · **v3 对称 vault**）
 
 ```
-CipherPetCore:  0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e
+CipherPetCore:  0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e   (v3 · 2026-05-13)
 USDT (stake):   0x779ded0c9e1022225f8e0630b35a9b54be713736
 Chain:          XLayer mainnet (chainId 196)
 RPC:            https://rpc.xlayer.tech
@@ -226,11 +238,35 @@ ERC-721 symbol: SOUL
 任何人都能直接用 `cast` 验证：
 
 ```bash
+# 1) 看任意地址的 Pet
 cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
   "getPet(address)((uint8,uint32,string,string))" \
   <your_address> --rpc-url https://rpc.xlayer.tech
-# 返回: (typeIdx, summonedAt, nickname, quote)
+
+# 2) v3 资金池守恒自检
+cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
+  "getPoolStatus()(uint256,uint128,uint256)" --rpc-url https://rpc.xlayer.tech
+# 返回: (heldUSDT, totalVaultLocked, surplus)
+# surplus 应 ≥ 0；heldUSDT >= totalVaultLocked 永远成立
 ```
+
+---
+
+## 🔄 v2 → v3 迁移（旧合约用户必读）
+
+v2 合约 `0x1e58374A103BB37613586B79f7c9aA90fb1b6d26`（已废弃）上如果你还有 vault 余额，需要主动取回：
+
+```bash
+# 1) 看 v2 vault 还有多少
+cast call 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26 \
+  "getBalance(address)(uint128)" <your_addr> --rpc-url https://rpc.xlayer.tech
+
+# 2) 如 > 0，到 OKLink 旧合约直接调 withdraw
+# https://www.okx.com/web3/explorer/xlayer/address/0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
+# 或直接说 "从老合约取出 vault" 让 AI 跑 cast send withdraw(uint128)
+```
+
+> v3 合约是全新池子，v2 vault 余额**不会自动迁移**。Dashboard 的备战池数字只反映 v3，看不到 v2。
 
 > **旧合约 `0x34dB...F9D9` (v0.7) 仍在链上**，但 Dashboard / Skill 已全部切到 v0.8 新合约。
 > 历史数据可在浏览器查询，新流量不再写入。

@@ -2,6 +2,8 @@
 
 > Web3 解决了交易，从没解决过孤独。
 > 0xSoul 把你的钱包**读成一个灵魂**。
+>
+> **0 protocol fee · 0 approve on PK · 100% vault-settled** — v3 对称资金池，挑战路径 0 外部 ERC20 调用
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![XLayer](https://img.shields.io/badge/Chain-XLayer%20mainnet-d4a84b)](https://www.okx.com/web3/explorer/xlayer)
@@ -9,7 +11,7 @@
 [![Live](https://img.shields.io/badge/Demo-0xsoul.fun-c84b3c)](https://0xsoul.fun)
 
 > **Live Dashboard**: <https://0xsoul.fun>
-> **Mainnet Contract**: [`0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e`](https://www.okx.com/web3/explorer/xlayer/address/0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e)
+> **Mainnet Contract** (v3 · symmetric vault · 2026-05-13): [`0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e`](https://www.okx.com/web3/explorer/xlayer/address/0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e)
 
 ---
 
@@ -99,10 +101,18 @@ ERC-721 symbol: SOUL
 任何人都能用 `cast` 一行验证：
 
 ```bash
+# 全协议聚合
 cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
   "getProtocolStats()(uint256,uint256,uint256)" \
   --rpc-url https://rpc.xlayer.tech
 # 返回: (已召唤数, 相遇 PK 总数, 总成交量)
+
+# v3 资金池守恒（"项目还偿付得起所有 vault 吗"）
+cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
+  "getPoolStatus()(uint256,uint128,uint256)" \
+  --rpc-url https://rpc.xlayer.tech
+# 返回: (合约持有 USDT, 所有 vault 余额之和, surplus)
+# heldUSDT >= totalVaultLocked 永远成立 → 合约任何时刻都能兑付所有用户 withdraw
 ```
 
 ---

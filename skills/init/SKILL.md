@@ -196,9 +196,18 @@ onchainos wallet verify <OTP>
 > "🎉 登录成功！你的钱包地址：0x8eb3...51d0 (永久属于你的邮箱，跨链通用)
 > 
 > 现在可以做这些事：
-> - 「召唤我的链魂」
+> - 「召唤我的链魂」（首次必走）
+> - 「存 1 USDT 到备战池」（**v3 必经步骤** —— 双方押金都从 vault 扣，不再从钱包）
 > - 「看我的战绩」
-> - 「挑战 0x...」"
+> - 「挑战 0x...」/「找人打」"
+
+> **v3 流程约束（AI 必须知道）**：
+> 1. `summon` — 召唤 0xSoul，每地址一次
+> 2. `deposit` — 把 USDT 存进 vault（首次需 approve，后续不用）
+> 3. `challenge` — 发起 PK，双方都从各自 vault 扣 amount，赢家 +2× 押注进自己 vault
+> 4. （可选）`withdraw` — 把 vault USDT 取回钱包
+>
+> 跳过第 2 步直接挑战 → 必 revert `InsufficientVaultBalance(0, want)`。
 
 ### 回合 4：写 session 缓存
 
