@@ -5,7 +5,7 @@
 ## 合约地址（XLayer Mainnet）
 
 ```bash
-export SOULPET_CORE="0x1e58374A103BB37613586B79f7c9aA90fb1b6d26"
+export SOULPET_CORE="0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e"
 export SOULPET_USDT="0x779ded0c9e1022225f8e0630b35a9b54be713736"
 export SOULPET_RPC="https://rpc.xlayer.tech"
 export SOULPET_CHAIN="xlayer"

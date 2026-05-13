@@ -74,7 +74,7 @@ AI 会自动接管：
 ### 关于资金安全
 - **私钥从未离开 OKX TEE 飞地**（你自己也不掌握私钥，OKX 也读不到）
 - **合约 0 admin / 完全 immutable**（部署后没人能改规则，包括我们）
-- **vault 无上限 · 押注 ≥ 0.01 USDT**：v2 移除人为常量，靠链上经济原理约束
+- **vault 无上限 · 押注 ≥ 0.01 USDT**：v3 移除人为常量，靠链上经济原理约束
 - **任何时候说"取出来"**：vault 余额秒回你钱包
 
 ---
@@ -187,7 +187,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 | 合约会跑路吗 | ❌ 部署后 0 admin 函数，**immutable**，没人能改规则 |
 | 能转 Pet 吗  | ❌ Soulbound ERC-721，永远属于召唤者                |
 | 能随时退出吗 | ✅ 说"取出来"，USDT 直接回你钱包                    |
-| Vault 上限   | **无上限** · 单场押注 ≥ 0.01 USDT（v2 移除人为常量） |
+| Vault 上限   | **无上限** · 单场押注 ≥ 0.01 USDT（v3 移除人为常量） |
 
 ---
 
@@ -205,7 +205,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 | `InvalidQuoteLength`                         | Slogan > 64 字节（≈ 20 中文字） | 缩短                                                   |
 | `insufficient funds for gas`                 | 钱包没 OKB                      | 从 OKX 提 ≥ 0.001 OKB 到 XLayer 主网                   |
 | `ERC20: insufficient allowance`              | USDT 还没 approve               | 说"存 X USDT"，AI 会自动 approve + deposit             |
-| `InsufficientVaultBalance`                   | 对手 vault 没钱                 | 换个 vault 余额够的目标，或先存钱再被挑战              |
+| `InsufficientVaultBalance`                   | **v3 双方 vault 都需 ≥ amount** | 自己不足 → 先 "存 X USDT"；对方不足 → 换目标或押少点 |
 | Dashboard 一直转圈                           | RPC 偶发 502                    | 等 8 秒下次轮询自动恢复（stale-while-revalidate）      |
 | Dashboard 显示空                             | 当前地址未召唤过 v0.8 合约      | 先在 Claude Code 里召唤，~30 秒后 Dashboard 出现       |
 
@@ -214,7 +214,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 ## ✨ 主网地址（信息透明 · v0.8）
 
 ```
-CipherPetCore:  0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
+CipherPetCore:  0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e
 USDT (stake):   0x779ded0c9e1022225f8e0630b35a9b54be713736
 Chain:          XLayer mainnet (chainId 196)
 RPC:            https://rpc.xlayer.tech
@@ -226,7 +226,7 @@ ERC-721 symbol: SOUL
 任何人都能直接用 `cast` 验证：
 
 ```bash
-cast call 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26 \
+cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
   "getPet(address)((uint8,uint32,string,string))" \
   <your_address> --rpc-url https://rpc.xlayer.tech
 # 返回: (typeIdx, summonedAt, nickname, quote)

@@ -9,7 +9,7 @@
 [![Live](https://img.shields.io/badge/Demo-0xsoul.fun-c84b3c)](https://0xsoul.fun)
 
 > **Live Dashboard**: <https://0xsoul.fun>
-> **Mainnet Contract**: [`0x1e58374A103BB37613586B79f7c9aA90fb1b6d26`](https://www.okx.com/web3/explorer/xlayer/address/0x1e58374A103BB37613586B79f7c9aA90fb1b6d26)
+> **Mainnet Contract**: [`0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e`](https://www.okx.com/web3/explorer/xlayer/address/0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e)
 
 ---
 
@@ -89,7 +89,7 @@ Network:        XLayer mainnet (chainId 196)
 RPC:            https://rpc.xlayer.tech
 Explorer:       https://www.okx.com/web3/explorer/xlayer
 
-CipherPetCore:  0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
+CipherPetCore:  0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e
 USDT (stake):   0x779ded0c9e1022225f8e0630b35a9b54be713736
 
 ERC-721 name:   0xSoul
@@ -99,7 +99,7 @@ ERC-721 symbol: SOUL
 任何人都能用 `cast` 一行验证：
 
 ```bash
-cast call 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26 \
+cast call 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e \
   "getProtocolStats()(uint256,uint256,uint256)" \
   --rpc-url https://rpc.xlayer.tech
 # 返回: (已召唤数, 相遇 PK 总数, 总成交量)
