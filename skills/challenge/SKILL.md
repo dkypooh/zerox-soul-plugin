@@ -19,7 +19,7 @@ description: |
 ## 链上目标（XLayer mainnet）
 
 ```
-CipherPetCore: 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
+CipherPetCore: 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
 USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 ```
 

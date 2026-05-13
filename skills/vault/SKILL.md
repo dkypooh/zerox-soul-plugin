@@ -20,7 +20,7 @@ description: |
 
 ```
 network:  XLayer mainnet (chainId 196)
-CipherPetCore: 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
+CipherPetCore: 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
 USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 ```
 
@@ -28,7 +28,7 @@ USDT:      0x779ded0c9e1022225f8e0630b35a9b54be713736
 
 ```bash
 onchainos wallet status            # 应已登录
-cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
+cast call 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26 \
     "hasSummoned(address)(bool)" $ME \
     --rpc-url https://rpc.xlayer.tech                # 应为 true
 ```
@@ -43,7 +43,7 @@ cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
 
 ```bash
 USDT="0x779ded0c9e1022225f8e0630b35a9b54be713736"
-CORE="0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26"
+CORE="0x1e58374A103BB37613586B79f7c9aA90fb1b6d26"
 RPC="https://rpc.xlayer.tech"
 
 ALLOW=$(cast call $USDT "allowance(address,address)(uint256)" $ME $CORE --rpc-url $RPC | awk '{print $1}')

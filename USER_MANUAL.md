@@ -214,7 +214,7 @@ AI: 🥊 提交挑战 → 一笔 tx 完成押注 + 链上随机 + 结算...
 ## ✨ 主网地址（信息透明 · v0.8）
 
 ```
-CipherPetCore:  0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26
+CipherPetCore:  0x1e58374A103BB37613586B79f7c9aA90fb1b6d26
 USDT (stake):   0x779ded0c9e1022225f8e0630b35a9b54be713736
 Chain:          XLayer mainnet (chainId 196)
 RPC:            https://rpc.xlayer.tech
@@ -226,7 +226,7 @@ ERC-721 symbol: SOUL
 任何人都能直接用 `cast` 验证：
 
 ```bash
-cast call 0x1e58374a103BB37613586B79f7c9Aa90fb1b6D26 \
+cast call 0x1e58374A103BB37613586B79f7c9aA90fb1b6d26 \
   "getPet(address)((uint8,uint32,string,string))" \
   <your_address> --rpc-url https://rpc.xlayer.tech
 # 返回: (typeIdx, summonedAt, nickname, quote)
