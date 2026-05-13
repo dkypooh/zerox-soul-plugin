@@ -1,6 +1,6 @@
 {
   "name": "zerox-soul",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "链魂 0xSoul — XLayer 上的链上灵魂协议。0 Gas Mint + USDT 启动彩蛋（OnChainOS x402 原生赞助），AI 自动召唤 Pet / Vault / 1v1 PK 全链路，TEE 钱包零私钥。",
   "author": {
     "name": "0xSoul Team",
@@ -17,7 +17,7 @@
     "onchainos",
     "soulbound",
     "erc721",
-    "pvp",
+    "pk",
     "agentic-wallet",
     "tee",
     "web3"
