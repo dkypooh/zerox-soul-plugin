@@ -22,14 +22,18 @@ description: |
 - "看看 0x... 的 Pet" / "/cipherpet-stats 0x..."
 - "排行榜" / "万神殿" / "/cipherpet-stats leaderboard"
 
-## 链上目标
+## 链上目标（XLayer mainnet · v3 对称 vault）
 
 ```
-CipherPetCore: 0xF8ad4C706d70f6e3Fa0f082bfB8fE143d0d0DE71
-RPC:           https://testrpc.xlayer.tech/terigon
+CipherPetCore: 0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e
+USDT:          0x779ded0c9e1022225f8e0630b35a9b54be713736
+RPC:           https://rpc.xlayer.tech
+Backup RPC:    https://xlayerrpc.okx.com
+Explorer:      https://www.okx.com/web3/explorer/xlayer
 ```
 
 > 注意：stats 是 **read-only**，**不需要私钥**。
+> v3 Pet struct 是 4 字段 `(uint8 typeIdx, uint32 summonedAt, string nickname, string quote)`，不要用 v0.7 旧 3 字段 ABI。
 
 ---
 
@@ -48,9 +52,11 @@ ME=$(cast wallet address --private-key $PRIVATE_KEY 2>/dev/null || echo $WALLET_
 
 ```bash
 ADDR=$1   # 0x... 或当前用户
+CORE="0xF09877E72E1b133524DE3491DD1BBF89CcF9BF0e"
+RPC="https://rpc.xlayer.tech"
 
-# Pet 基本信息
-PET=$(cast call $CORE "getPet(address)((uint8,uint32,string))" $ADDR --rpc-url $RPC)
+# Pet 基本信息（v3: 4 字段含 nickname / quote）
+PET=$(cast call $CORE "getPet(address)((uint8,uint32,string,string))" $ADDR --rpc-url $RPC)
 HAS=$(cast call $CORE "hasSummoned(address)(bool)" $ADDR --rpc-url $RPC)
 ```
 
@@ -83,19 +89,19 @@ BATTLES=$(cast call $CORE \
 │      "穿越过三轮熊市。Aave 是家。"             │
 │      ⭐ TOP 5%                                │
 ├─────────────────────────────────────────────┤
-│  Vault:   98.000000 USDT (上限 1000)          │
+│  备战池:  0.150000 USDT （v3 无上限）          │
 │  胜场:    5    败场: 7    胜率: 41%            │
 │  总场次:  12                                  │
 └─────────────────────────────────────────────┘
 
 最近 10 场 相遇:
-  #12  vs 0x2e64 · 1.0 USDT · 挑战者胜  block #29928960
-  #11  vs 0x2e64 · 3.0 USDT · 守卫胜    block #29928943
-  #10  vs 0x2e64 · 2.0 USDT · 守卫胜    block #29928931
+  #12  vs 0x2e64 · 0.05 USDT · 挑战者胜  block #29928960
+  #11  vs 0x2e64 · 0.10 USDT · 守卫胜    block #29928943
+  #10  vs 0x2e64 · 0.20 USDT · 守卫胜    block #29928931
   ...
 
-链上验证: https://www.okx.com/web3/explorer/xlayer-test/address/0x1Cb8...1106
-Dashboard: http://localhost:5173/u/0x1Cb8...1106
+链上验证: https://www.okx.com/web3/explorer/xlayer/address/0x1Cb8...1106
+Dashboard: https://0xsoul.fun/u/0x1Cb8...1106
 ```
 
 ### 模式 3: Leaderboard（万神殿）
@@ -162,6 +168,6 @@ level = min(99, 30 + wins * 3)
 ## 高可用约束
 
 - **无需私钥** — 全部 view 函数，离线签名都不要
-- **无失败** — RPC 失败 → 换备用 RPC `https://xlayertestrpc.okx.com/terigon`
+- **无失败** — 主 RPC 失败 → 切备用 RPC `https://xlayerrpc.okx.com`（同 mainnet 集群）
 - **缓存可选** — 高频查同一地址可缓存 8 秒（同 Dashboard polling 节奏）
 - **格式化容错** — 地址自动 checksum 化，case-insensitive 匹配

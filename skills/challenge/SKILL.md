@@ -77,6 +77,12 @@ TARGET=$PICK
 
 ## 模式 2: Challenge ⭐
 
+> ⚠️ **押注阈值（AI 必读，不要弄错）**：
+> - 最小：**0.01 USDT = 1e4 wei**（`MIN_STAKE_PER_BATTLE = 1e4`）
+> - 最大：无上限（受 uint128/2 防溢出 + 双方 vault 余额约束）
+> - **不要把 "1 USDT" 当成最小** —— 用户备战池有 0.05 USDT 也能开 5 局
+> - AI 默认建议押注：用户没指定时优先 `0.05`（≈ 50000 wei），不是 1 USDT
+
 ### Step 1 — 前置检查（**双方 vault 都需 ≥ amount**）
 
 ```bash
@@ -92,8 +98,17 @@ T_BAL=$(cast call $CORE "getBalance(address)(uint128)" $TARGET --rpc-url $RPC | 
 ### Step 2 — 我方 vault 不足时先 deposit
 
 ```bash
-AMOUNT_USDT=1
-AMOUNT_WEI=$((AMOUNT_USDT * 1000000))
+# 示例：默认押 0.05 USDT（远低于 v3 最低 0.01 / 1e4 wei，留出多局空间）
+# 用户没指定金额时优先这个，不要默认 1 USDT
+AMOUNT_USDT="0.05"
+AMOUNT_WEI=$(awk -v u="$AMOUNT_USDT" 'BEGIN{printf "%d", u*1000000}')   # 浮点 → wei
+MIN_STAKE_WEI=10000                                                       # 0.01 USDT = 1e4
+
+# 守门：低于合约 MIN_STAKE 直接拒绝
+if [ "$AMOUNT_WEI" -lt "$MIN_STAKE_WEI" ]; then
+    echo "❌ 押注 $AMOUNT_USDT USDT < 最低 0.01 USDT，拒绝"
+    exit 1
+fi
 
 if [ "$ME_BAL" -lt "$AMOUNT_WEI" ]; then
     # 1) 先 approve USDT 给 CipherPetCore（一次性，仅 deposit 时需要）
@@ -104,7 +119,7 @@ if [ "$ME_BAL" -lt "$AMOUNT_WEI" ]; then
         onchainos wallet contract-call --to $USDT --chain xlayer \
             --input-data "$APPROVE_DATA" --biz-type "dapp"
     fi
-    # 2) deposit 把 USDT 进备战池
+    # 2) deposit 把 USDT 进备战池（只够这一场即可，也可以一次存更大方便复用）
     DEPOSIT_DATA=$(cast calldata "deposit(uint128)" $AMOUNT_WEI)
     onchainos wallet contract-call --to $CORE --chain xlayer \
         --input-data "$DEPOSIT_DATA" --biz-type "dapp"
